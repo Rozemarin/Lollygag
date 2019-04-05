@@ -231,13 +231,9 @@ class MyWidget(QMainWindow, Ui_MainWindow):
             self.choose_subject.activated[str].connect(self.onActivated)
             # сохранить вес
             self.save_weight.clicked.connect(self.save_weight_funk)
-            # sorry for sps но я должна была, если что исправим потом
-            self.sps = []
-            self.mark_flag = None
-            self.k_res = 0
-            self.f_res = 0
-            self.t_res = 0
+            self.save_marks.clicked.connect(self.save_marks_func)
             self.subject = self.subjects[0]
+
 
         except Exception as e:
             print('init', e)
@@ -274,9 +270,19 @@ class MyWidget(QMainWindow, Ui_MainWindow):
                  (sum(marks['saved']['t']) / len(marks['saved']['t']) if len(marks['saved']['t']) != 0 else 0)) *\
                   self.weight_dict[self.subject][2] / 100
             self.display.display(round(k + f + t, 2))
-            # Нужна обработка TextBrowser
+            self.set_text(self, marks)
         except Exception as e:
             print('read_and_count', e)
+
+    # Вывод всех оценок
+    def set_text(self, marks):
+        self.textBrowser.setPlainText('''Констатирующая.\nsaved:{}.\nnew{}.\n
+                                                  Формирующая.\nsaved: {}.\nnew{}: .\n
+                                                  Творческая.\nsaved: {}.\nnew{}: .\n'''.format(
+            ' '.join(map(str, marks['saved']['k'])), ' '.join(map(str, marks['new']['k'])),
+            ' '.join(map(str, marks['saved']['f'])), ' '.join(map(str, marks['new']['f'])),
+            ' '.join(map(str, marks['saved']['t'])), ' '.join(map(str, marks['new']['t']))))
+
 
     # подсчет после нажатия, radiobutton через pushputton, так красивее, вместо проверки кнопки провека флага
     def k_pusher(self):
@@ -317,6 +323,8 @@ class MyWidget(QMainWindow, Ui_MainWindow):
             self.spinBox_k.setValue(self.weight_dict[self.subject][0])
             self.spinBox_f.setValue(self.weight_dict[self.subject][1])
             self.spinBox_t.setValue(self.weight_dict[self.subject][2])
+            marks = self.mark_dict[self.subject]
+            self.set_text(marks)
         except Exception as e:
             print('onActivated', e)
 
@@ -340,6 +348,16 @@ class MyWidget(QMainWindow, Ui_MainWindow):
         except Exception as e:
             print('sav_weight', e)
 
+    def save_marks_func(self):
+        self.mark_dict[self.subject]['saved']['k'] += self.mark_dict[self.subject]['new']['k']
+        self.mark_dict[self.subject]['saved']['f'] += self.mark_dict[self.subject]['new']['f']
+        self.mark_dict[self.subject]['saved']['t'] += self.mark_dict[self.subject]['new']['t']
+        self.mark_dict[self.subject]['new']['k'] = []
+        self.mark_dict[self.subject]['new']['f'] = []
+        self.mark_dict[self.subject]['new']['t'] = []
+        self.set_text(self.mark_dict[self.subject])
+
+
 
     # Отслеживание закрытия
     def closeEvent(self, event):
@@ -350,6 +368,9 @@ class MyWidget(QMainWindow, Ui_MainWindow):
             with open('weight.json', mode='w', encoding='utf-8') as file:
                 file.write(json.dumps(self.weight_dict))
             with open('marks.json', mode='w', encoding='utf-8') as file:
+                self.mark_dict[self.subject]['new']['k'] = []
+                self.mark_dict[self.subject]['new']['f'] = []
+                self.mark_dict[self.subject]['new']['t'] = []
                 file.write(json.dumps(self.mark_dict))
             event.accept()
         else:
