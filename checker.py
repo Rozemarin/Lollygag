@@ -50,15 +50,15 @@ class Ui_MainWindow(object):
         self.num_5.setGeometry(QtCore.QRect(230, 60, 51, 51))
         self.num_5.setObjectName("num_5")
         self.buttonGroup.addButton(self.num_5)
-        self.pushButton_7 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_7.setGeometry(QtCore.QRect(20, 240, 191, 51))
+        self.save_weight = QtWidgets.QPushButton(self.centralwidget)
+        self.save_weight.setGeometry(QtCore.QRect(20, 240, 191, 51))
         font = QtGui.QFont()
         font.setFamily("Arial Black")
         font.setPointSize(10)
         font.setBold(True)
         font.setWeight(75)
-        self.pushButton_7.setFont(font)
-        self.pushButton_7.setObjectName("pushButton_7")
+        self.save_weight.setFont(font)
+        self.save_weight.setObjectName("save_weight")
         self.add_button = QtWidgets.QRadioButton(self.centralwidget)
         self.add_button.setGeometry(QtCore.QRect(230, 180, 101, 51))
         font = QtGui.QFont()
@@ -155,7 +155,7 @@ class Ui_MainWindow(object):
         self.num_4.setText(_translate("MainWindow", "4"))
         self.num_3.setText(_translate("MainWindow", "3"))
         self.num_5.setText(_translate("MainWindow", "5"))
-        self.pushButton_7.setText(_translate("MainWindow", "Сохранить вес"))
+        self.save_weight.setText(_translate("MainWindow", "Сохранить вес"))
         self.add_button.setText(_translate("MainWindow", "Добавить"))
         self.remove_button.setText(_translate("MainWindow", "Убрать"))
         self.save_marks.setText(_translate("MainWindow", "Сохранить оценки"))
@@ -191,13 +191,50 @@ class MyWidget(QMainWindow, Ui_MainWindow):
         self.pushButton_k.clicked.connect(self.k_pusher)
         self.pushButton_f.clicked.connect(self.f_pusher)
         self.pushButton_t.clicked.connect(self.t_pusher)
+        
+
+        # для дальнейшего исправления добавленных предметов
+        self.subjects = ['Алгебра',
+                         'Биология',
+                         'География',
+                         'Геометрия',
+                         'Иностранный язык',
+                         'Информатика',
+                         'История',
+                         'Литература',
+                         'Обществознание',
+                         'Русский язык',
+                         'Физика',
+                         'Физическая культура',
+                         'Химия']
+        
+        self.weight_dict = {'Алгебра': [60, 25, 15],
+                           'Биология': [70, 5, 25],
+                           'География': [70, 10, 20],
+                           'Геометрия': [60, 25, 15],
+                           'Иностранный язык': [50, 30, 20],
+                           'Информатика': [60, 20, 20],
+                           'История': [40, 20, 40],
+                           'Литература': [40, 20, 40],
+                           'Обществознание': [60, 20, 20],
+                           'Русский язык': [40, 20, 40],
+                           'Физика': [70, 20, 10],
+                           'Физическая культура': [34, 33, 33],
+                           'Химия': [70, 20, 10]}
+        # combobox
+        self.choose_subject.addItems(self.subjects)
+        self.choose_subject.activated[str].connect(self.onActivated)
+        
+        # сохранить вес
+        self.save_weight.clicked.connect(self.save_weight_funk)
+
         # sorry for sps но я должна была, если что исправим потом
         self.sps = []
         self.mark_flag = None
-        self.k_res = None
-        self.f_res = None
-        self.t_res = None
-
+        self.k_res = 0
+        self.f_res = 0
+        self.t_res = 0
+        self.subject = self.subjects[0]
 
     # функция ввода, показа и подсчета оценок
     def read_and_count_marks(self):
@@ -210,7 +247,7 @@ class MyWidget(QMainWindow, Ui_MainWindow):
         self.display.display(round(sum(self.sps) / len(self.sps), 2))
 
 
-    # подсчет после нажатия, radiobutton через pushputton, так красивее
+    # подсчет после нажатия, radiobutton через pushputton, так красивее, вместо проверки кнопки провека флага
     def k_pusher(self):
         if self.pushButton_k.sender():
             self.pushButton_k.setStyleSheet('QPushButton {background-color: #F08080; color: #800000;}')
@@ -233,7 +270,17 @@ class MyWidget(QMainWindow, Ui_MainWindow):
             self.mark_flag = 3
             self.pushButton_k.setStyleSheet('QPushButton {background-color: white; color: black;}')
             self.pushButton_f.setStyleSheet('QPushButton {background-color: white; color: black;}')
-
+            
+    # кобмобокс
+    def onActivated(self, text):
+        self.subject = text
+        
+    
+    # сохранить вес
+    def save_weight_funk(self):
+        self.weight_dict[self.subject] = [self.spinBox_k.value(), self.spinBox_f.value(), self.spinBox_t.value()]
+        
+        
 app = QApplication(sys.argv)
 ex = MyWidget()
 ex.show()
