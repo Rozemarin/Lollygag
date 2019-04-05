@@ -233,6 +233,16 @@ class MyWidget(QMainWindow, Ui_MainWindow):
             self.save_weight.clicked.connect(self.save_weight_funk)
             self.save_marks.clicked.connect(self.save_marks_func)
             self.subject = self.subjects[0]
+            self.spinBox_k.setValue(self.weight_dict[self.subject][0])
+            self.spinBox_f.setValue(self.weight_dict[self.subject][1])
+            self.spinBox_t.setValue(self.weight_dict[self.subject][2])
+            self.set_text(self.mark_dict[self.subject])
+            # Автоматически стоит ввод формирующих оценок
+            self.pushButton_f.setStyleSheet('QPushButton {background-color: #87CEEB; color: blue;}')
+            self.mark_flag = 2
+            self.pushButton_k.setStyleSheet('QPushButton {background-color: white; color: black;}')
+            self.pushButton_t.setStyleSheet('QPushButton {background-color: white; color: black;}')
+
 
 
         except Exception as e:
