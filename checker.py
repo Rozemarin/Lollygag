@@ -8,12 +8,14 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 import sys
+from PyQt5 import uic
 from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow
+
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(440, 482)
+        MainWindow.resize(441, 483)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.choose_subject = QtWidgets.QComboBox(self.centralwidget)
@@ -85,56 +87,56 @@ class Ui_MainWindow(object):
         self.save_marks.setFont(font)
         self.save_marks.setObjectName("save_marks")
         self.textBrowser = QtWidgets.QTextBrowser(self.centralwidget)
-        self.textBrowser.setGeometry(QtCore.QRect(20, 310, 401, 131))
+        self.textBrowser.setGeometry(QtCore.QRect(20, 300, 401, 141))
         self.textBrowser.setObjectName("textBrowser")
-        self.lineEdit_k = QtWidgets.QLineEdit(self.centralwidget)
-        self.lineEdit_k.setGeometry(QtCore.QRect(20, 60, 51, 51))
-        font = QtGui.QFont()
-        font.setFamily("Arial Black")
-        font.setPointSize(30)
-        font.setBold(True)
-        font.setWeight(75)
-        self.lineEdit_k.setFont(font)
-        self.lineEdit_k.setObjectName("lineEdit_k")
-        self.lineEdit_f = QtWidgets.QLineEdit(self.centralwidget)
-        self.lineEdit_f.setGeometry(QtCore.QRect(20, 120, 51, 51))
-        font = QtGui.QFont()
-        font.setFamily("Arial Black")
-        font.setPointSize(32)
-        font.setBold(True)
-        font.setWeight(75)
-        self.lineEdit_f.setFont(font)
-        self.lineEdit_f.setObjectName("lineEdit_f")
-        self.lineEdit_t = QtWidgets.QLineEdit(self.centralwidget)
-        self.lineEdit_t.setGeometry(QtCore.QRect(20, 180, 51, 51))
-        font = QtGui.QFont()
-        font.setFamily("Arial Black")
-        font.setPointSize(32)
-        font.setBold(True)
-        font.setWeight(75)
-        self.lineEdit_t.setFont(font)
-        self.lineEdit_t.setObjectName("lineEdit_t")
         self.spinBox_k = QtWidgets.QSpinBox(self.centralwidget)
-        self.spinBox_k.setGeometry(QtCore.QRect(80, 60, 131, 51))
+        self.spinBox_k.setGeometry(QtCore.QRect(90, 60, 121, 51))
         font = QtGui.QFont()
         font.setPointSize(36)
         self.spinBox_k.setFont(font)
         self.spinBox_k.setObjectName("spinBox_k")
         self.spinBox_f = QtWidgets.QSpinBox(self.centralwidget)
-        self.spinBox_f.setGeometry(QtCore.QRect(80, 120, 131, 51))
+        self.spinBox_f.setGeometry(QtCore.QRect(90, 120, 121, 51))
         font = QtGui.QFont()
         font.setPointSize(36)
         self.spinBox_f.setFont(font)
         self.spinBox_f.setObjectName("spinBox_f")
         self.spinBox_t = QtWidgets.QSpinBox(self.centralwidget)
-        self.spinBox_t.setGeometry(QtCore.QRect(80, 180, 131, 51))
+        self.spinBox_t.setGeometry(QtCore.QRect(90, 180, 121, 51))
         font = QtGui.QFont()
         font.setPointSize(36)
         self.spinBox_t.setFont(font)
         self.spinBox_t.setObjectName("spinBox_t")
+        self.pushButton_k = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_k.setGeometry(QtCore.QRect(20, 60, 51, 51))
+        font = QtGui.QFont()
+        font.setFamily("Arial Black")
+        font.setPointSize(26)
+        font.setBold(True)
+        font.setWeight(75)
+        self.pushButton_k.setFont(font)
+        self.pushButton_k.setObjectName("pushButton_k")
+        self.pushButton_f = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_f.setGeometry(QtCore.QRect(20, 120, 51, 51))
+        font = QtGui.QFont()
+        font.setFamily("Arial Black")
+        font.setPointSize(26)
+        font.setBold(True)
+        font.setWeight(75)
+        self.pushButton_f.setFont(font)
+        self.pushButton_f.setObjectName("pushButton_f")
+        self.pushButton_t = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_t.setGeometry(QtCore.QRect(20, 180, 51, 51))
+        font = QtGui.QFont()
+        font.setFamily("Arial Black")
+        font.setPointSize(26)
+        font.setBold(True)
+        font.setWeight(75)
+        self.pushButton_t.setFont(font)
+        self.pushButton_t.setObjectName("pushButton_t")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 440, 21))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 441, 21))
         self.menubar.setObjectName("menubar")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
@@ -170,9 +172,10 @@ class Ui_MainWindow(object):
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'SimSun\'; font-size:9pt;\">Ф 5 4 3  2 5 7 7 6 3 5</span></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'SimSun\'; font-size:9pt;\">К 4 5 2 4</span></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'SimSun\'; font-size:9pt;\">Т 4 5 7 9 5 5</span></p></body></html>"))
-        self.lineEdit_k.setText(_translate("MainWindow", "К"))
-        self.lineEdit_f.setText(_translate("MainWindow", "Ф"))
-        self.lineEdit_t.setText(_translate("MainWindow", "Т"))
+        self.pushButton_k.setText(_translate("MainWindow", "К"))
+        self.pushButton_f.setText(_translate("MainWindow", "Ф"))
+        self.pushButton_t.setText(_translate("MainWindow", "Т"))
+
 
 class MyWidget(QMainWindow, Ui_MainWindow):
     def __init__(self):
@@ -184,8 +187,16 @@ class MyWidget(QMainWindow, Ui_MainWindow):
                  self.buttonGroup.buttons()]
         # установка значения "добавить" по умолчанию
         self.add_button.setChecked(True)
+        # подключение к, ф, т
+        self.pushButton_k.clicked.connect(self.k_pusher)
+        self.pushButton_f.clicked.connect(self.f_pusher)
+        self.pushButton_t.clicked.connect(self.t_pusher)
         # sorry for sps но я должна была, если что исправим потом
         self.sps = []
+        self.mark_flag = None
+        self.k_res = None
+        self.f_res = None
+        self.t_res = None
 
 
     # функция ввода, показа и подсчета оценок
@@ -195,10 +206,35 @@ class MyWidget(QMainWindow, Ui_MainWindow):
             self.sps.append(int(self.sender().text()))
         if self.remove_button.isChecked():
             self.sps.remove(int(self.sender().text()))
+        # работа с флагами после подключения чекбоксов
         self.display.display(round(sum(self.sps) / len(self.sps), 2))
 
 
-app=QApplication(sys.argv)
-ex=MyWidget()
+    # подсчет после нажатия, radiobutton через pushputton, так красивее
+    def k_pusher(self):
+        if self.pushButton_k.sender():
+            self.pushButton_k.setStyleSheet('QPushButton {background-color: #F08080; color: #800000;}')
+            self.mark_flag = 1
+            self.pushButton_f.setStyleSheet('QPushButton {background-color: white; color: black;}')
+            self.pushButton_t.setStyleSheet('QPushButton {background-color: white; color: black;}')
+            
+            
+    def f_pusher(self):
+        if self.pushButton_f.sender():
+            self.pushButton_f.setStyleSheet('QPushButton {background-color: #87CEEB; color: blue;}')
+            self.mark_flag = 2
+            self.pushButton_k.setStyleSheet('QPushButton {background-color: white; color: black;}')
+            self.pushButton_t.setStyleSheet('QPushButton {background-color: white; color: black;}')
+            
+            
+    def t_pusher(self):
+        if self.pushButton_t.sender():
+            self.pushButton_t.setStyleSheet('QPushButton {background-color: #98FB98; color: #008000;}')
+            self.mark_flag = 3
+            self.pushButton_k.setStyleSheet('QPushButton {background-color: white; color: black;}')
+            self.pushButton_f.setStyleSheet('QPushButton {background-color: white; color: black;}')
+
+app = QApplication(sys.argv)
+ex = MyWidget()
 ex.show()
 sys.exit(app.exec_())
