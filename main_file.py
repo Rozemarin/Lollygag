@@ -3,12 +3,15 @@ import sys
 from PyQt5 import uic
 from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow, QMessageBox
 import json
+import sys
+from PyQt5.QtWidgets import QMainWindow, QAction, qApp, QApplication
+from PyQt5.QtGui import QIcon
 
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(441, 483)
+        MainWindow.resize(600, 600)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.choose_subject = QtWidgets.QComboBox(self.centralwidget)
@@ -43,6 +46,10 @@ class Ui_MainWindow(object):
         self.num_5.setGeometry(QtCore.QRect(230, 60, 51, 51))
         self.num_5.setObjectName("num_5")
         self.buttonGroup.addButton(self.num_5)
+        self.delete_all = QtWidgets.QPushButton(self.centralwidget)
+        self.delete_all.setGeometry(QtCore.QRect(20, 480, 181, 50))
+        self.delete_all.setObjectName('delete_all')
+
         self.save_weight = QtWidgets.QPushButton(self.centralwidget)
         self.save_weight.setGeometry(QtCore.QRect(20, 240, 191, 51))
         font = QtGui.QFont()
@@ -148,6 +155,7 @@ class Ui_MainWindow(object):
         self.num_4.setText(_translate("MainWindow", "4"))
         self.num_3.setText(_translate("MainWindow", "3"))
         self.num_5.setText(_translate("MainWindow", "5"))
+        self.delete_all.setText(_translate("MainWindow", "Сброс"))
         self.save_weight.setText(_translate("MainWindow", "Сохранить вес"))
         self.add_button.setText(_translate("MainWindow", "Добавить"))
         self.remove_button.setText(_translate("MainWindow", "Убрать"))
@@ -157,12 +165,14 @@ class Ui_MainWindow(object):
         self.pushButton_t.setText(_translate("MainWindow", "Т"))
 
 
+
 class MyWidget(QMainWindow, Ui_MainWindow):
     def __init__(self):
         try:
 
             super().__init__()
             self.setupUi(self)
+
             # Добавление словаря оценок
             try:
                 with open('marks.json', mode='r', encoding='utf-8') as file:
@@ -212,6 +222,8 @@ class MyWidget(QMainWindow, Ui_MainWindow):
             self.pushButton_k.clicked.connect(self.k_pusher)
             self.pushButton_f.clicked.connect(self.f_pusher)
             self.pushButton_t.clicked.connect(self.t_pusher)
+            # Сброс
+            self.delete_all.clicked.connect(self.delete_all_func)
             # для дальнейшего исправления добавленных предметов
             self.subjects = ['Алгебра',
                              'Биология',
@@ -247,7 +259,6 @@ class MyWidget(QMainWindow, Ui_MainWindow):
 
         except Exception as e:
             print('init', e)
-
 
 
 
@@ -367,7 +378,12 @@ class MyWidget(QMainWindow, Ui_MainWindow):
         self.mark_dict[self.subject]['new']['t'] = []
         self.set_text(self.mark_dict[self.subject])
 
-
+    def delete_all_func(self):
+        for i in self.mark_dict:
+            for j in self.mark_dict[i]:
+                for q in self.mark_dict[i][j]:
+                    self.mark_dict[i][j][q] = []
+        self.set_text(self.mark_dict[self.subject])
 
     # Отслеживание закрытия
     def closeEvent(self, event):
@@ -385,28 +401,6 @@ class MyWidget(QMainWindow, Ui_MainWindow):
             event.accept()
         else:
             event.ignore()
-
-
-'''
-        self.weight_dict[self.subject] = [self.spinBox_k.value(), self.spinBox_f.value(), self.spinBox_t.value()]
-
-
-'''
-# Словарь
-diction = {
-    'Алгебра': {'weight': {'k': 0, 'f': 0, 't': 0}, 'marks': {'k': [], 'f': [], 't': []}},
-    'Биология': {'weight': {'k': 0, 'f': 0, 't': 0}, 'marks': {'k': [], 'f': [], 't': []}},
-    'География': {'weight': {'k': 0, 'f': 0, 't': 0}, 'marks': {'k': [], 'f': [], 't': []}},
-    'Геометрия': {'weight': {'k': 0, 'f': 0, 't': 0}, 'marks': {'k': [], 'f': [], 't': []}},
-    'Иностранный язык': {'weight': {'k': 0, 'f': 0, 't': 0}, 'marks': {'k': [], 'f': [], 't': []}},
-    'Информатика': {'weight': {'k': 0, 'f': 0, 't': 0}, 'marks': {'k': [], 'f': [], 't': []}},
-    'История': {'weight': {'k': 0, 'f': 0, 't': 0}, 'marks': {'k': [], 'f': [], 't': []}},
-    'Литература': {'weight': {'k': 0, 'f': 0, 't': 0}, 'marks': {'k': [], 'f': [], 't': []}},
-    'Обществознание': {'weight': {'k': 0, 'f': 0, 't': 0}, 'marks': {'k': [], 'f': [], 't': []}},
-    'Русский язык': {'weight': {'k': 0, 'f': 0, 't': 0}, 'marks': {'k': [], 'f': [], 't': []}},
-    'Физика': {'weight': {'k': 0, 'f': 0, 't': 0}, 'marks': {'k': [], 'f': [], 't': []}},
-    'Физическая культура': {'weight': {'k': 0, 'f': 0, 't': 0}, 'marks': {'k': [], 'f': [], 't': []}},
-    'Химия': {'weight': {'k': 0, 'f': 0, 't': 0}, 'marks': {'k': [], 'f': [], 't': []}}}
 
 
 if __name__ == '__main__':
