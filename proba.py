@@ -860,10 +860,9 @@ class MyWidget(QMainWindow, Ui_MainWindow):
             print('save_marks', e)
 
     def delete_all_func(self):
-        for i in self.mark_dict:
-            for j in self.mark_dict[i]:
-                for q in self.mark_dict[i][j]:
-                    self.mark_dict[i][j][q] = []
+        for j in self.mark_dict[self.subject]:
+            for q in self.mark_dict[self.subject][j]:
+                self.mark_dict[self.subject][j][q] = []
         self.set_text(self.mark_dict[self.subject])
         self.display.display(round(0, 2))
 
