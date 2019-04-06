@@ -609,7 +609,7 @@ class SettingWidget(QMainWindow, Setting_Window):
             if self.okButton.sender():
                 self.mw = MyWidget(self.mark_dict, self.weight_dict)
                 self.mw.choose_subject.clear()
-                self.mw.subject = list(self.mw.mark_dict.keys())
+                self.mw.subjects = list(self.mw.mark_dict.keys())
                 self.mw.choose_subject.addItems(self.subjects)
                 self.auto = True
                 self.mw.show()
