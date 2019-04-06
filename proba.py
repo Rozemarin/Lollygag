@@ -763,9 +763,7 @@ class MyWidget(QMainWindow, Ui_MainWindow):
 
     # Вывод всех оценок
     def set_text(self, marks):
-        self.textBrowser.setPlainText('''Констатирующая.\nsaved:{}.\nnew{}.\n
-                                                  Формирующая.\nsaved: {}.\nnew{}: .\n
-                                                  Творческая.\nsaved: {}.\nnew{}: .\n'''.format(
+        self.textBrowser.setPlainText('''Констатирующая\nsaved: {}\nnew: {} \n\nФормирующая\nsaved: {}\nnew: {} \n\nТворческая\nsaved: {}\nnew: {} \n'''.format(
             ' '.join(map(str, marks['saved']['k'])), ' '.join(map(str, marks['new']['k'])),
             ' '.join(map(str, marks['saved']['f'])), ' '.join(map(str, marks['new']['f'])),
             ' '.join(map(str, marks['saved']['t'])), ' '.join(map(str, marks['new']['t']))))
@@ -867,6 +865,7 @@ class MyWidget(QMainWindow, Ui_MainWindow):
                 for q in self.mark_dict[i][j]:
                     self.mark_dict[i][j][q] = []
         self.set_text(self.mark_dict[self.subject])
+        self.display.display(round(0, 2))
 
     # Открытие нового окна настроек
     def settings_func(self):
